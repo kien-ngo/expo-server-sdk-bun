@@ -1,11 +1,10 @@
 /**
  * expo-server-sdk
  *
- * Use this if you are running Node on your server backend when you are working with Expo
+ * Use this if you are running Bun on your server backend when you are working with Expo
  * Application Services
  * https://expo.dev
  */
-import fetch, { Headers, Response as FetchResponse } from 'node-fetch';
 import assert from 'node:assert';
 import { Agent } from 'node:http';
 import { gzipSync } from 'node:zlib';
@@ -196,7 +195,7 @@ export class Expo {
   }
 
   private async requestAsync(url: string, options: RequestOptions): Promise<any> {
-    let requestBody: string | Buffer | undefined;
+    let requestBody: BodyInit | undefined;
 
     const sdkVersion = require('../package.json').version;
     const requestHeaders = new Headers({
@@ -212,7 +211,7 @@ export class Expo {
       const json = JSON.stringify(options.body);
       assert(json != null, `JSON request body must not be null`);
       if (options.shouldCompress(json)) {
-        requestBody = gzipSync(Buffer.from(json));
+        requestBody = new Uint8Array(gzipSync(Buffer.from(json)));
         requestHeaders.set('Content-Encoding', 'gzip');
       } else {
         requestBody = json;
@@ -225,7 +224,6 @@ export class Expo {
       method: options.httpMethod,
       body: requestBody,
       headers: requestHeaders,
-      agent: this.httpAgent,
     });
 
     if (response.status !== 200) {
@@ -251,7 +249,7 @@ export class Expo {
     return result.data;
   }
 
-  private async parseErrorResponseAsync(response: FetchResponse): Promise<Error> {
+  private async parseErrorResponseAsync(response: Response): Promise<Error> {
     const textBody = await response.text();
     let result: ApiResult;
     try {
@@ -269,7 +267,7 @@ export class Expo {
     return this.getErrorFromResult(response, result);
   }
 
-  private async getTextResponseErrorAsync(response: FetchResponse, text: string): Promise<Error> {
+  private async getTextResponseErrorAsync(response: Response, text: string): Promise<Error> {
     const apiError: ExtensibleError = new Error(
       `Expo responded with an error with status code ${response.status}: ` + text,
     );
@@ -282,7 +280,7 @@ export class Expo {
    * Returns an error for the first API error in the result, with an optional `others` field that
    * contains any other errors.
    */
-  private getErrorFromResult(response: FetchResponse, result: ApiResult): Error {
+  private getErrorFromResult(response: Response, result: ApiResult): Error {
     const noErrorsMessage = `Expected at least one error from Expo`;
     assert(result.errors, noErrorsMessage);
     const [errorData, ...otherErrorData] = result.errors;
