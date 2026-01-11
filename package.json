@@ -1,15 +1,12 @@
 {
   "name": "expo-server-sdk",
   "version": "4.0.0",
-  "description": "Server-side library for working with Expo using Node.js",
+  "description": "Server-side library for working with Expo using Bun",
   "main": "build/ExpoClient.js",
   "types": "build/ExpoClient.d.ts",
   "files": [
     "build"
   ],
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
     "build": "yarn prepack",
     "lint": "eslint",
@@ -42,9 +39,9 @@
   "author": "support@expo.dev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/expo/expo-server-sdk-node/issues"
+    "url": "https://github.com/kien-ngo/expo-server-sdk-bun/issues"
   },
-  "homepage": "https://github.com/expo/expo-server-sdk-node#readme",
+  "homepage": "https://github.com/kien-ngo/expo-server-sdk-bun#readme",
   "dependencies": {
     "node-fetch": "^2.6.0",
     "promise-limit": "^2.7.0",
@@ -64,6 +61,5 @@
     "prettier": "3.7.4",
     "ts-jest": "29.4.5",
     "typescript": "5.9.3"
-  },
-  "packageManager": "yarn@4.12.0"
+  }
 }

@@ -19,19 +19,6 @@ import { Expo } from 'expo-server-sdk';
 // optionally providing an access token if you have enabled push security
 let expo = new Expo({
   accessToken: process.env.EXPO_ACCESS_TOKEN,
-  /*
-   * @deprecated
-   * The optional useFcmV1 parameter defaults to true, as FCMv1 is now the default for the Expo push service.
-   *
-   * If using FCMv1, the useFcmV1 parameter may be omitted.
-   * Set this to false to have Expo send to the legacy endpoint.
-   *
-   * See https://firebase.google.com/support/faq#deprecated-api-shutdown
-   * for important information on the legacy endpoint shutdown.
-   *
-   * Once the legacy service is fully shut down, the parameter will be removed in a future PR.
-   */
-  useFcmV1: true,
 });
 
 // Create the messages that you want to send to clients
@@ -146,13 +133,13 @@ let receiptIdChunks = expo.chunkPushNotificationReceiptIds(receiptIds);
 
 ## Developing
 
-The `mise.toml` file lets you run the full CI pipeline with [mise](https://mise.jdx.dev) and the command `mise run ci`.  Each task in the pipeline can also be run separately.
+The `mise.toml` file lets you run the full CI pipeline with [mise](https://mise.jdx.dev) and the command `mise run ci`. Each task in the pipeline can also be run separately.
 
 `mise install` or `mise en .` will also install tools for your current interactive shell, including [yarn](https://yarnpkg.com/).
 
 Scripts in the `package.json` file can be run with either `yarn <name>` or `node --run <name>`.
 
-The source code is in the `src/` directory and the build output is emitted in the `build/` directory.  To build, run `yarn build`.
+The source code is in the `src/` directory and the build output is emitted in the `build/` directory. To build, run `yarn build`.
 
 To typecheck continuously, run `yarn tsc --watch`.
 

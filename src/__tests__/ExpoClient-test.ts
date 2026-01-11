@@ -18,16 +18,6 @@ const validationError = HttpResponse.json(
 
 const server = setupServer(
   http.post(sendApiUrl, async ({ request }) => {
-    // The `useFcmV1` parameter can now only be true or absent
-    const url = new URL(request.url);
-    switch (url.searchParams.get('useFcmV1')) {
-      case 'true':
-        break;
-      case null:
-        break;
-      default:
-        return validationError;
-    }
     if (request.headers.get('Content-Type') !== 'application/json') {
       return validationError;
     }
@@ -84,18 +74,6 @@ afterEach(() => {
 describe('sending push notification messages', () => {
   test('resolves with the data from the server response', () =>
     expect(client().sendPushNotificationsAsync([{ to: 'one' }])).resolves.toEqual(mockTickets));
-
-  describe('the useFcmV1 option', () => {
-    test('omits the parameter when set to true', () =>
-      expect(client({ useFcmV1: true }).sendPushNotificationsAsync([{ to: '' }])).resolves.toEqual(
-        mockTickets,
-      ));
-
-    test('includes the parameter when set to false', () =>
-      expect(
-        client({ useFcmV1: false }).sendPushNotificationsAsync([{ to: '' }]),
-      ).rejects.toThrow());
-  });
 
   test('compresses request bodies over 1 KiB', () => {
     const messages = [{ to: 'a', body: new Array(1500).join('?') }];
