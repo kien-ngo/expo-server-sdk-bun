@@ -1,15 +1,15 @@
-# expo-server-sdk-node [![Tests](https://github.com/expo/expo-server-sdk-node/workflows/Tests/badge.svg)](https://github.com/expo/expo-server-sdk-node/actions/workflows/tests.yml) [![codecov](https://codecov.io/gh/expo/expo-server-sdk-node/branch/master/graph/badge.svg)](https://codecov.io/gh/expo/expo-server-sdk-node)
+# expo-server-sdk-bun
 
-Server-side library for working with Expo using Node.js.
+Server-side library for working with Expo using Bun. This is an opinionated fork of [expo-server-sdk-node](https://github.com/expo/expo-server-sdk-node) with zero third-party dependencies.
 
 If you have problems with the code in this repository, please file issues & bug reports at https://github.com/expo/expo. Thanks!
 
 ## Usage
 
-_Note: the following code assumes that you are using JavaScript modules with `import`. If you aren't then you should use the old syntax for the SDK import: `const { Expo } = require('expo-server-sdk')`._
+_Note: the following code assumes that you are using JavaScript modules with `import`. If you aren't then you should use the old syntax for the SDK import: `const { Expo } = require('expo-server-sdk-bun')`._
 
 ```bash
-yarn add expo-server-sdk
+bun add expo-server-sdk
 ```
 
 ```js
@@ -143,10 +143,11 @@ The source code is in the `src/` directory and the build output is emitted in th
 
 To typecheck continuously, run `yarn tsc --watch`.
 
-To run tests, run `yarn test`.
+To run tests, run `bun test`.
 
 ## See Also
 
+- https://github.com/expo-community/expo-server-sdk-node
 - https://github.com/expo-community/expo-server-sdk-ruby
 - https://github.com/expo-community/expo-server-sdk-python
 - https://github.com/katayama8000/expo-push-notification-client-rust
