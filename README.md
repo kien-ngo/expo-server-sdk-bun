@@ -14,8 +14,6 @@ If you have problems with the code in this repository, please file issues & bug 
 
 ## Usage
 
-_Note: the following code assumes that you are using JavaScript modules with `import`. If you aren't then you should use the old syntax for the SDK import: `const { Expo } = require('expo-server-sdk-bun')`._
-
 ```bash
 bun add expo-server-sdk
 ```
@@ -141,17 +139,11 @@ let receiptIdChunks = expo.chunkPushNotificationReceiptIds(receiptIds);
 
 ## Developing
 
-The `mise.toml` file lets you run the full CI pipeline with [mise](https://mise.jdx.dev) and the command `mise run ci`. Each task in the pipeline can also be run separately.
+The source code is in the `src/` directory and the build output is emitted in the `build/` directory. To build, run `bun run build`.
 
-`mise install` or `mise en .` will also install tools for your current interactive shell, including [yarn](https://yarnpkg.com/).
+To typecheck continuously, run `bun tsc --watch`.
 
-Scripts in the `package.json` file can be run with either `yarn <name>` or `node --run <name>`.
-
-The source code is in the `src/` directory and the build output is emitted in the `build/` directory. To build, run `yarn build`.
-
-To typecheck continuously, run `yarn tsc --watch`.
-
-To run tests, run `bun run test`.
+To run tests, run `bun run test`. As mentioned, the tests are not using bun:test to keep it in sync with the official `expo-server-sdk-node` package.
 
 ## See Also
 

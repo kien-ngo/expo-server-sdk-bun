@@ -1,5 +1,5 @@
 {
-  "name": "expo-server-sd-bun",
+  "name": "expo-server-sdk-bun",
   "version": "4.0.0",
   "description": "Server-side library for working with Expo using Bun",
   "keywords": [
@@ -23,8 +23,8 @@
   "main": "build/ExpoClient.js",
   "types": "build/ExpoClient.d.ts",
   "scripts": {
-    "build": "yarn prepack",
-    "prepack": "tsc --project tsconfig.build.json",
+    "build": "bun prepack",
+    "prepack": "tsgo --project tsconfig.build.json",
     "test": "jest --coverage",
     "typecheck": "tsgo --noEmit -p tsconfig.json",
     "lint": "oxlint --type-aware",
