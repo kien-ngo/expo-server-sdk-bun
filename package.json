@@ -1,12 +1,37 @@
 {
   "name": "expo-server-sd-bun",
   "version": "4.0.0",
+  "description": "Server-side library for working with Expo using Bun",
+  "keywords": [
+    "bun",
+    "expo",
+    "push-notifications"
+  ],
+  "homepage": "https://github.com/kien-ngo/expo-server-sdk-bun#readme",
+  "bugs": {
+    "url": "https://github.com/kien-ngo/expo-server-sdk-bun/issues"
+  },
+  "license": "MIT",
   "author": "support@expo.dev",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/expo/expo-server-sdk-node.git"
   },
+  "files": [
+    "build"
+  ],
   "main": "build/ExpoClient.js",
+  "types": "build/ExpoClient.d.ts",
+  "scripts": {
+    "build": "yarn prepack",
+    "prepack": "tsc --project tsconfig.build.json",
+    "test": "jest --coverage",
+    "typecheck": "tsgo --noEmit -p tsconfig.json",
+    "lint": "oxlint --type-aware",
+    "format": "oxfmt --check",
+    "format:fix": "oxfmt",
+    "prepare": "husky"
+  },
   "devDependencies": {
     "@types/bun": "^1.3.5",
     "@typescript/native-preview": "^7.0.0-dev.20260109.1",
@@ -19,14 +44,6 @@
     "ts-jest": "29.4.5",
     "typescript": "^5.9.3"
   },
-  "bugs": {
-    "url": "https://github.com/kien-ngo/expo-server-sdk-bun/issues"
-  },
-  "description": "Server-side library for working with Expo using Bun",
-  "files": [
-    "build"
-  ],
-  "homepage": "https://github.com/kien-ngo/expo-server-sdk-bun#readme",
   "jest": {
     "coverageDirectory": "<rootDir>/../coverage",
     "coveragePathIgnorePatterns": [
@@ -46,22 +63,5 @@
     "testPathIgnorePatterns": [
       "/lib/"
     ]
-  },
-  "keywords": [
-    "bun",
-    "expo",
-    "push-notifications"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "yarn prepack",
-    "prepack": "tsc --project tsconfig.build.json",
-    "test": "jest --coverage",
-    "typecheck": "tsgo --noEmit -p tsconfig.json",
-    "lint": "oxlint --type-aware",
-    "format": "oxfmt --check",
-    "format:fix": "oxfmt",
-    "prepare": "husky"
-  },
-  "types": "build/ExpoClient.d.ts"
+  }
 }
