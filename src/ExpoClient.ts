@@ -9,8 +9,8 @@ import fetch, { Headers, Response as FetchResponse } from 'node-fetch';
 import assert from 'node:assert';
 import { Agent } from 'node:http';
 import { gzipSync } from 'node:zlib';
-const promiseLimit = require('./promise-limit');
-const promiseRetry = require('./promise-retry');
+const promiseLimit = require('./lib/promise-limit');
+const promiseRetry = require('./lib/promise-retry');
 
 import {
   defaultConcurrentRequestLimit,
