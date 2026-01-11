@@ -15,7 +15,7 @@
   "author": "support@expo.dev",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/expo/expo-server-sdk-node.git"
+    "url": "git+https://github.com/kien-ngo/expo-server-sdk-bun.git"
   },
   "files": [
     "build"
