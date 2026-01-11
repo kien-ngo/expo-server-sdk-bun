@@ -43,16 +43,13 @@
   },
   "homepage": "https://github.com/kien-ngo/expo-server-sdk-bun#readme",
   "dependencies": {
-    "node-fetch": "^2.6.0",
-    "promise-limit": "^2.7.0",
-    "promise-retry": "^2.0.1"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@tsconfig/node20": "20.1.8",
     "@tsconfig/strictest": "2.0.5",
     "@types/node": "24.10.1",
     "@types/node-fetch": "2.6.12",
-    "@types/promise-retry": "1.1.6",
     "eslint": "9.33.0",
     "eslint-config-universe": "15.0.3",
     "jest": "29.7.0",
