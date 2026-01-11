@@ -5,7 +5,7 @@ Server-side library for working with Expo using Bun. This is an opinionated fork
 Notable changes:
 - No third-party dependencies
 - `useFcmV1` flag is removed
-- Bun is used for package manager & tests (Replaces yarn and jest)
+- Bun is used for package manager (Tests however will be kept identical to the test suite in `expo-server-sdk-node`)
 - Oxlint & Oxfmt are used instead of Eslint and Prettier
 - ESM-only
 
@@ -151,7 +151,7 @@ The source code is in the `src/` directory and the build output is emitted in th
 
 To typecheck continuously, run `yarn tsc --watch`.
 
-To run tests, run `bun test`.
+To run tests, run `bun run test`.
 
 ## See Also
 

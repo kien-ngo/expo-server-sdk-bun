@@ -26,7 +26,7 @@
     "build": "yarn prepack",
     "prepack": "tsc --project tsconfig.build.json",
     "test": "jest --coverage",
-    "typecheck": "tsgo --noEmit",
+    "typecheck": "tsgo --noEmit -p tsconfig.json",
     "lint": "oxlint --type-aware",
     "format": "oxfmt --check",
     "format:fix": "oxfmt",
@@ -63,6 +63,12 @@
     },
     "preset": "ts-jest",
     "rootDir": "src",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/lib/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/lib/"
+    ]
   }
 }
