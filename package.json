@@ -36,7 +36,8 @@
   },
   "keywords": [
     "expo",
-    "push-notifications"
+    "push-notifications",
+    "bun"
   ],
   "author": "support@expo.dev",
   "license": "MIT",

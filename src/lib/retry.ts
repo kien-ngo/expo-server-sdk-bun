@@ -1,9 +1,9 @@
 // Source: https://github.com/tim-kos/node-retry/blob/master/lib/retry.js
-var RetryOperation = require('./retry-operation');
+var RetryOperationClass = require("./retry-operation");
 
 exports.operation = function (options) {
   var timeouts = exports.timeouts(options);
-  return new RetryOperation(timeouts, {
+  return new RetryOperationClass(timeouts, {
     forever: options && (options.forever || options.retries === Infinity),
     unref: options && options.unref,
     maxRetryTime: options && options.maxRetryTime,
@@ -27,7 +27,7 @@ exports.timeouts = function (options) {
   }
 
   if (opts.minTimeout > opts.maxTimeout) {
-    throw new Error('minTimeout is greater than maxTimeout');
+    throw new Error("minTimeout is greater than maxTimeout");
   }
 
   var timeouts = [];
@@ -50,7 +50,9 @@ exports.timeouts = function (options) {
 exports.createTimeout = function (attempt, opts) {
   var random = opts.randomize ? Math.random() + 1 : 1;
 
-  var timeout = Math.round(random * Math.max(opts.minTimeout, 1) * Math.pow(opts.factor, attempt));
+  var timeout = Math.round(
+    random * Math.max(opts.minTimeout, 1) * Math.pow(opts.factor, attempt),
+  );
   timeout = Math.min(timeout, opts.maxTimeout);
 
   return timeout;
@@ -65,7 +67,7 @@ exports.wrap = function (obj, options, methods) {
   if (!methods) {
     methods = [];
     for (var key in obj) {
-      if (typeof obj[key] === 'function') {
+      if (typeof obj[key] === "function") {
         methods.push(key);
       }
     }

@@ -1,7 +1,7 @@
 // Source: https://github.com/featurist/promise-limit/blob/master/index.js
 
-function limiter (count) {
-  var outstanding = 0
+function limiter (count: number) {
+  let outstanding = 0
   var jobs = []
 
   function remove () {
@@ -14,6 +14,7 @@ function limiter (count) {
 
   function dequeue () {
     var job = jobs.shift()
+    // @ts-ignore
     semaphore.queue = jobs.length
 
     if (job) {
@@ -24,6 +25,7 @@ function limiter (count) {
   function queue (fn) {
     return new Promise(function (resolve, reject) {
       jobs.push({fn: fn, resolve: resolve, reject: reject})
+      // @ts-ignore
       semaphore.queue = jobs.length
     })
   }
@@ -88,12 +90,6 @@ module.exports = function (count) {
     })
   }
 }
-
-
-/// type declare ///
-// export = limitFactory
-
-// declare namespace limitFactory {}
 
 /**
  * Returns a function that can be used to wrap promise returning functions,
