@@ -3,7 +3,7 @@
     "declaration": true,
     "noEmit": true,
     "verbatimModuleSyntax": false,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "exclude": ["build", "coverage"]
 }

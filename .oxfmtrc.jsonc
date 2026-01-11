@@ -4,6 +4,6 @@
   "experimentalSortImports": {
     "order": "asc",
     "sortSideEffects": false,
-    "newlinesBetween": false
-  }
+    "newlinesBetween": false,
+  },
 }

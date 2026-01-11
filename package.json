@@ -2,11 +2,26 @@
   "name": "expo-server-sdk",
   "version": "4.0.0",
   "description": "Server-side library for working with Expo using Bun",
-  "main": "build/ExpoClient.js",
-  "types": "build/ExpoClient.d.ts",
+  "keywords": [
+    "bun",
+    "expo",
+    "push-notifications"
+  ],
+  "homepage": "https://github.com/kien-ngo/expo-server-sdk-bun#readme",
+  "bugs": {
+    "url": "https://github.com/kien-ngo/expo-server-sdk-bun/issues"
+  },
+  "license": "MIT",
+  "author": "support@expo.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/expo/expo-server-sdk-node.git"
+  },
   "files": [
     "build"
   ],
+  "main": "build/ExpoClient.js",
+  "types": "build/ExpoClient.d.ts",
   "scripts": {
     "build": "yarn prepack",
     "prepack": "tsc --project tsconfig.build.json",
@@ -16,35 +31,6 @@
     "format": "oxfmt --check",
     "format:fix": "oxfmt"
   },
-  "jest": {
-    "coverageDirectory": "<rootDir>/../coverage",
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 0
-      }
-    },
-    "preset": "ts-jest",
-    "rootDir": "src",
-    "testEnvironment": "node"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/expo/expo-server-sdk-node.git"
-  },
-  "keywords": [
-    "expo",
-    "push-notifications",
-    "bun"
-  ],
-  "author": "support@expo.dev",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kien-ngo/expo-server-sdk-bun/issues"
-  },
-  "homepage": "https://github.com/kien-ngo/expo-server-sdk-bun#readme",
   "dependencies": {
     "node-fetch": "^2.6.0"
   },
@@ -62,5 +48,19 @@
     "oxlint-tsgolint": "^0.11.0",
     "ts-jest": "29.4.5",
     "typescript": "^5.9.3"
+  },
+  "jest": {
+    "coverageDirectory": "<rootDir>/../coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 0
+      }
+    },
+    "preset": "ts-jest",
+    "rootDir": "src",
+    "testEnvironment": "node"
   }
 }

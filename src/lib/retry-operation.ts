@@ -7,7 +7,7 @@ function RetryOperation(timeouts, options) {
   this._originalTimeouts = JSON.parse(JSON.stringify(timeouts));
   this._timeouts = timeouts;
   this._options = options || {};
-  this._maxRetryTime = options && options.maxRetryTime || Infinity;
+  this._maxRetryTime = (options && options.maxRetryTime) || Infinity;
   this._fn = null;
   this._errors = [];
   this._attempts = 1;
@@ -23,12 +23,12 @@ function RetryOperation(timeouts, options) {
 }
 module.exports = RetryOperation;
 
-RetryOperation.prototype.reset = function() {
+RetryOperation.prototype.reset = function () {
   this._attempts = 1;
   this._timeouts = this._originalTimeouts.slice(0);
-}
+};
 
-RetryOperation.prototype.stop = function() {
+RetryOperation.prototype.stop = function () {
   if (this._timeout) {
     clearTimeout(this._timeout);
   }
@@ -36,11 +36,11 @@ RetryOperation.prototype.stop = function() {
     clearTimeout(this._timer);
   }
 
-  this._timeouts       = [];
+  this._timeouts = [];
   this._cachedTimeouts = null;
 };
 
-RetryOperation.prototype.retry = function(err) {
+RetryOperation.prototype.retry = function (err) {
   if (this._timeout) {
     clearTimeout(this._timeout);
   }
@@ -69,16 +69,16 @@ RetryOperation.prototype.retry = function(err) {
   }
 
   var self = this;
-  this._timer = setTimeout(function() {
+  this._timer = setTimeout(function () {
     self._attempts++;
 
     if (self._operationTimeoutCb) {
-      self._timeout = setTimeout(function() {
+      self._timeout = setTimeout(function () {
         self._operationTimeoutCb(self._attempts);
       }, self._operationTimeout);
 
       if (self._options.unref) {
-          self._timeout.unref();
+        self._timeout.unref();
       }
     }
 
@@ -86,13 +86,13 @@ RetryOperation.prototype.retry = function(err) {
   }, timeout);
 
   if (this._options.unref) {
-      this._timer.unref();
+    this._timer.unref();
   }
 
   return true;
 };
 
-RetryOperation.prototype.attempt = function(fn, timeoutOps) {
+RetryOperation.prototype.attempt = function (fn, timeoutOps) {
   this._fn = fn;
 
   if (timeoutOps) {
@@ -106,7 +106,7 @@ RetryOperation.prototype.attempt = function(fn, timeoutOps) {
 
   var self = this;
   if (this._operationTimeoutCb) {
-    this._timeout = setTimeout(function() {
+    this._timeout = setTimeout(function () {
       self._operationTimeoutCb();
     }, self._operationTimeout);
   }
@@ -116,27 +116,27 @@ RetryOperation.prototype.attempt = function(fn, timeoutOps) {
   this._fn(this._attempts);
 };
 
-RetryOperation.prototype.try = function(fn) {
+RetryOperation.prototype.try = function (fn) {
   console.log('Using RetryOperation.try() is deprecated');
   this.attempt(fn);
 };
 
-RetryOperation.prototype.start = function(fn) {
+RetryOperation.prototype.start = function (fn) {
   console.log('Using RetryOperation.start() is deprecated');
   this.attempt(fn);
 };
 
 RetryOperation.prototype.start = RetryOperation.prototype.try;
 
-RetryOperation.prototype.errors = function() {
+RetryOperation.prototype.errors = function () {
   return this._errors;
 };
 
-RetryOperation.prototype.attempts = function() {
+RetryOperation.prototype.attempts = function () {
   return this._attempts;
 };
 
-RetryOperation.prototype.mainError = function() {
+RetryOperation.prototype.mainError = function () {
   if (this._errors.length === 0) {
     return null;
   }

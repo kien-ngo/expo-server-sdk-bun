@@ -1,95 +1,100 @@
 // Source: https://github.com/featurist/promise-limit/blob/master/index.js
 
-function limiter (count: number) {
-  let outstanding = 0
-  var jobs = []
+function limiter(count: number) {
+  let outstanding = 0;
+  var jobs = [];
 
-  function remove () {
-    outstanding--
+  function remove() {
+    outstanding--;
 
     if (outstanding < count) {
-      dequeue()
+      dequeue();
     }
   }
 
-  function dequeue () {
-    var job = jobs.shift()
+  function dequeue() {
+    var job = jobs.shift();
     // @ts-ignore
-    semaphore.queue = jobs.length
+    semaphore.queue = jobs.length;
 
     if (job) {
-      run(job.fn).then(job.resolve).catch(job.reject)
+      run(job.fn).then(job.resolve).catch(job.reject);
     }
   }
 
-  function queue (fn) {
+  function queue(fn) {
     return new Promise(function (resolve, reject) {
-      jobs.push({fn: fn, resolve: resolve, reject: reject})
+      jobs.push({ fn: fn, resolve: resolve, reject: reject });
       // @ts-ignore
-      semaphore.queue = jobs.length
-    })
+      semaphore.queue = jobs.length;
+    });
   }
 
-  function run (fn) {
-    outstanding++
+  function run(fn) {
+    outstanding++;
     try {
-      return Promise.resolve(fn()).then(function (result) {
-        remove()
-        return result
-      }, function (error) {
-        remove()
-        throw error
-      })
+      return Promise.resolve(fn()).then(
+        function (result) {
+          remove();
+          return result;
+        },
+        function (error) {
+          remove();
+          throw error;
+        },
+      );
     } catch (err) {
-      remove()
-      return Promise.reject(err)
+      remove();
+      return Promise.reject(err);
     }
   }
 
   var semaphore = function (fn) {
     if (outstanding >= count) {
-      return queue(fn)
+      return queue(fn);
     } else {
-      return run(fn)
+      return run(fn);
     }
-  }
+  };
 
-  return semaphore
+  return semaphore;
 }
 
-function map (items, mapper) {
-  var failed = false
+function map(items, mapper) {
+  var failed = false;
 
-  var limit = this
+  var limit = this;
 
-  return Promise.all(items.map(function () {
-    var args = arguments
-    return limit(function () {
-      if (!failed) {
-        return mapper.apply(undefined, args).catch(function (e) {
-          failed = true
-          throw e
-        })
-      }
-    })
-  }))
+  return Promise.all(
+    items.map(function () {
+      var args = arguments;
+      return limit(function () {
+        if (!failed) {
+          return mapper.apply(undefined, args).catch(function (e) {
+            failed = true;
+            throw e;
+          });
+        }
+      });
+    }),
+  );
 }
 
-function addExtras (fn) {
-  fn.queue = 0
-  fn.map = map
-  return fn
+function addExtras(fn) {
+  fn.queue = 0;
+  fn.map = map;
+  return fn;
 }
 
 module.exports = function (count) {
   if (count) {
-    return addExtras(limiter(count))
+    return addExtras(limiter(count));
   } else {
     return addExtras(function (fn) {
-      return fn()
-    })
+      return fn();
+    });
   }
-}
+};
 
 /**
  * Returns a function that can be used to wrap promise returning functions,
@@ -103,22 +108,22 @@ module.exports = function (count) {
 // declare type limit<T> = limitFunc<T> & limitInterface<T>
 
 // declare interface limitInterface<T> {
-  /**
-   * Maps an array of items using mapper, but limiting the number of concurrent
-   * calls to mapper with the concurrency of limit. If at least one call to
-   * mapper returns a rejected promise, the result of map is a the same rejected
-   * promise, and no further calls to mapper are made.
-   * @param items any items
-   * @param mapper iterator
-   */
-  // map<U>(items: ReadonlyArray<T>, mapper: (value: T) => Promise<U>): Promise<U[]>
+/**
+ * Maps an array of items using mapper, but limiting the number of concurrent
+ * calls to mapper with the concurrency of limit. If at least one call to
+ * mapper returns a rejected promise, the result of map is a the same rejected
+ * promise, and no further calls to mapper are made.
+ * @param items any items
+ * @param mapper iterator
+ */
+// map<U>(items: ReadonlyArray<T>, mapper: (value: T) => Promise<U>): Promise<U[]>
 
-  /**
-   * Returns the queue length, the number of jobs that are waiting to be started.
-   * You could use this to throttle incoming jobs, so the queue doesn't
-   * overwhealm the available memory - for e.g. pause() a stream.
-  */
-  // queue: number
+/**
+ * Returns the queue length, the number of jobs that are waiting to be started.
+ * You could use this to throttle incoming jobs, so the queue doesn't
+ * overwhealm the available memory - for e.g. pause() a stream.
+ */
+// queue: number
 // }
 
 /**
@@ -129,5 +134,5 @@ module.exports = function (count) {
  * @param fn a function that is called with no arguments and returns a promise.
  * You can pass arguments to your function by putting it inside another function,
  * i.e. `() -> myfunc(a, b, c)`.
-*/
+ */
 // declare type limitFunc<T> = (fn: () => Promise<T>) => Promise<T>
