@@ -53,6 +53,9 @@
   },
   "jest": {
     "coverageDirectory": "<rootDir>/../coverage",
+    "coveragePathIgnorePatterns": [
+      "/lib/"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 100,
@@ -65,9 +68,6 @@
     "rootDir": "src",
     "testEnvironment": "node",
     "testPathIgnorePatterns": [
-      "/lib/"
-    ],
-    "coveragePathIgnorePatterns": [
       "/lib/"
     ]
   }

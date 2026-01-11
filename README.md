@@ -3,12 +3,12 @@
 Server-side library for working with Expo using Bun. This is an opinionated fork of [expo-server-sdk-node](https://github.com/expo/expo-server-sdk-node).
 
 Notable changes:
+
 - No third-party dependencies
 - `useFcmV1` flag is removed
 - Bun is used for package manager (Tests however will be kept identical to the test suite in `expo-server-sdk-node`)
 - Oxlint & Oxfmt are used instead of Eslint and Prettier
 - ESM-only
-
 
 If you have problems with the code in this repository, please file issues & bug reports at https://github.com/expo/expo. Thanks!
 
