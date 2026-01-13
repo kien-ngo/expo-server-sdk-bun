@@ -8,7 +8,6 @@
 import assert from 'node:assert';
 import { Agent } from 'node:http';
 import { gzipSync } from 'node:zlib';
-const promiseLimit = require('./lib/promise-limit');
 const promiseRetry = require('./lib/promise-retry');
 
 import {
@@ -19,6 +18,7 @@ import {
   requestRetryMinTimeout,
   sendApiUrl,
 } from './ExpoClientValues';
+import { promiseLimit } from './lib/promise-limit';
 
 export class Expo {
   static pushNotificationChunkSizeLimit = pushNotificationChunkLimit;

@@ -86,7 +86,7 @@ function addExtras(fn) {
   return fn;
 }
 
-module.exports = function (count) {
+export function promiseLimit(count: number) {
   if (count) {
     return addExtras(limiter(count));
   } else {
@@ -94,7 +94,7 @@ module.exports = function (count) {
       return fn();
     });
   }
-};
+}
 
 /**
  * Returns a function that can be used to wrap promise returning functions,
